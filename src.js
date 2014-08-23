@@ -43,7 +43,6 @@ var lazyRetina;
     return false;
   };
 
-  // element in viewport TODO: FIX so that, any image in viewport, loads
   var ElemInViewport = function(elem) {
     var loadingRangeHeight = (window.innerHeight || document.documentElement.clientHeight) + config.offset;
     if(elem) {
