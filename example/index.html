@@ -10,9 +10,8 @@
     <div style="width: 1000px; height: 1000px;" data-src='http://www.deelay.me/img/10000ms.gif' data-src-2x='imgs/3@2x.jpg' width='1000' height='1000'></div>
     <script type='text/javascript'>
       lazyRetina.init({
-        onBeforeImageLoad: function(elem) {
-          console.log($(elem));
-          $(elem).hide().fadeIn('slow');
+        onImageLoad: function(elem) {
+          $(elem).hide().fadeIn();
         }
       });
     </script>

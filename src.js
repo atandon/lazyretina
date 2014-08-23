@@ -68,6 +68,7 @@ var lazyRetina;
     elem.removeAttribute(config.tags.normal);
 
     img.onload = function(resp) {
+      elem.style.visibility = 'visible';
       callback();
       config.onImageLoad(elem);
     };
@@ -77,13 +78,16 @@ var lazyRetina;
 
   var getImagePath = function(elem, isRetina) {
     var imgTag = (isRetina) ? config.tags.retina : config.tags.normal;
+    var imgTagValue = elem.getAttribute(imgTag);
 
-    if(elem.getAttributeNode(imgTag)) {
-      return elem.getAttribute(imgTag);
-    }
-
-    return false;
+    return imgTagValue ? imgTagValue : false;
   };
+
+  var setImageStyle = function(elem) {
+    elem.removeAttribute('src');
+    elem.style.visibility = 'hidden';
+    elem.style.backgroundImage = '';
+  }
 
   var load = function() {
     var selectorName = config.container + " " + "["+config.tags.normal+"]";
@@ -94,8 +98,9 @@ var lazyRetina;
 
     for(var x=0; x < elemsLength; x++) {
       if( (ElemInViewport(elems[x]) || !config.lazyload) && 
-          elems[x].getAttributeNode('data-no-retina-lazy') == null) {
+          elems[x].getAttribute('data-no-retina-lazy') == null) {
         imgPath = getImagePath(elems[x],isRetina);
+        setImageStyle(elems[x]);
 
         if(imgPath) {
           loadImage(elems[x],imgPath,function(elem,imgPath) {
