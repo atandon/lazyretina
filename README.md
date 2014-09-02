@@ -9,6 +9,7 @@ lazy loading + high-res image rendering based on device screen
 * Pages load with the appropriate high-res image
 * Supports \<img> and background images
 * Easier to handle callbacks on and before image load
+* Written in plain JS, not reliant on any third-party library
 
 
 ## How to use?
