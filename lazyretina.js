@@ -8,13 +8,17 @@ var lazyRetina;
   var config = {
     tags: {
       retina: 'data-src-2x',
-      normal: 'data-src'
+      normal: 'data-src',
+      normalWidth: 'data-src-width'
     },
     container: 'body',
-    offset: 100,
+    offset: 300,
     lazyload: true,
     onImageLoad: function() {},
-    onBeforeImageLoad: function() {}
+    onBeforeImageLoad: function() {},
+    shouldFallbackToNormal: function(elem) {
+      return elem.offsetWidth < (elem.getAttribute(this.tags.normalWidth) / 2);
+    }
   };
 
   lazyRetina.configure = function(options) {
@@ -49,21 +53,21 @@ var lazyRetina;
       var rect = elem.getBoundingClientRect();
       return ((rect.top >= -config.offset && rect.top <= loadingRangeHeight) ||
               (rect.bottom >= -config.offset && rect.bottom <= loadingRangeHeight));
-    };
+    }
 
     return false;
   };
 
   var isImage = function(elem) {
     return elem.tagName.toLowerCase() === 'img';
-  }
+  };
 
   var loadImage = function(elem,src,callback) {
     var img = new Image();
 
     config.onBeforeImageLoad(elem);
 
-    elem.removeAttribute(config.tags.retina)
+    elem.removeAttribute(config.tags.retina);
     elem.removeAttribute(config.tags.normal);
 
     img.onload = function(resp) {
@@ -76,7 +80,7 @@ var lazyRetina;
   };
 
   var getImagePath = function(elem, isRetina) {
-    var imgTag = (isRetina) ? config.tags.retina : config.tags.normal;
+    var imgTag = (isRetina && !config.shouldFallbackToNormal(elem)) ? config.tags.retina : config.tags.normal;
     var imgTagValue = elem.getAttribute(imgTag);
 
     return imgTagValue ? imgTagValue : false;
@@ -86,7 +90,7 @@ var lazyRetina;
     elem.removeAttribute('src');
     elem.style.visibility = 'hidden';
     elem.style.backgroundImage = '';
-  }
+  };
 
   var load = function() {
     var selectorName = config.container + " " + "["+config.tags.normal+"]";
@@ -96,7 +100,7 @@ var lazyRetina;
         imgPath;
 
     for(var x=0; x < elemsLength; x++) {
-      if( (ElemInViewport(elems[x]) || !config.lazyload) && 
+      if( (ElemInViewport(elems[x]) || !config.lazyload) &&
           elems[x].getAttribute('data-no-retina-lazy') == null) {
         imgPath = getImagePath(elems[x],isRetina);
         setImageStyle(elems[x]);
@@ -108,13 +112,14 @@ var lazyRetina;
           }.bind(this,elems[x],imgPath));
         }
       }
-    };
+    }
   };
 
   lazyRetina.init = function(options) {
     this.configure(options);
     load(config);
     root.onload = function() { load(config); };
+    $(document).on('touchmove',function() { load(config); });
 
     if(config.lazyload) {
       root.onscroll = function() { load(config); };
