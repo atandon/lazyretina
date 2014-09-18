@@ -16,8 +16,11 @@ var lazyRetina;
     lazyload: true,
     onImageLoad: function() {},
     onBeforeImageLoad: function() {},
-    shouldFallbackToNormal: function(elem) {
+    shouldSwitchToNormal: function(elem) {
       return elem.offsetWidth < (elem.getAttribute(this.tags.normalWidth) / 2);
+    },
+    shouldSwitchToRetina: function(elem) {
+      return elem.offsetWidth > elem.getAttribute(this.tags.normalWidth);
     }
   };
 
@@ -80,7 +83,8 @@ var lazyRetina;
   };
 
   var getImagePath = function(elem, isRetina) {
-    var imgTag = (isRetina && !config.shouldFallbackToNormal(elem)) ? config.tags.retina : config.tags.normal;
+    var imgTag = ((isRetina && !config.shouldSwitchToNormal(elem)) || 
+                   config.shouldSwitchToRetina(elem)) ? config.tags.retina : config.tags.normal;
     var imgTagValue = elem.getAttribute(imgTag);
 
     return imgTagValue ? imgTagValue : false;
