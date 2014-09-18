@@ -20,8 +20,8 @@ In the \<head> tag:
 <script type='text/javascript' src='lazyretina.min.js'></script>
 
 <script type='text/javascript'>
-var options = {};
-lazyRetina.init(options);
+  var options = {};
+  lazyRetina.init(options);
 </script>
 
 ```
