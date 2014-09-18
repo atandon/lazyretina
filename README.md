@@ -31,10 +31,10 @@ In your html:
 
 ```
   // Images
-  <img data-src='img1.jpg' data-src-2x='img2.jpg' />
+  <img data-src='img1.jpg' data-src-width='100' data-src-2x='img2.jpg' />
 
   // Background images
-  <div data-src='background1.jpg' data-src-2x='background1.jpg' />
+  <div data-src='background1.jpg' data-src-width='100' data-src-2x='background1.jpg' />
 ```
 
 
