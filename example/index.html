@@ -2,16 +2,19 @@
 <html>
   <head>
     <script src='jquery-1.11.1.min.js'></script>
-    <script type='text/javascript' src='../src.js'></script>
+    <script type='text/javascript' src='../lazyretina.js'></script>
   </head>
   <body>
-    <img src='' data-src='http://www.deelay.me/img/1000ms.gif' data-src-2x='imgs/1@2x.jpg' width='1000' height='1000' />
-    <img src='' data-src='http://www.deelay.me/img/5000ms.gif' data-src-2x='imgs/2@2x.jpg' width='1000' height='1000' />
-    <div style="width: 1000px; height: 1000px;" data-src='http://www.deelay.me/img/10000ms.gif' data-src-2x='imgs/3@2x.jpg' width='1000' height='1000'></div>
+    <img src='' data-src='http://www.deelay.me/img/1000ms.gif' data-src-2x='imgs/1@2x.jpg' data-src-width='1000' width='100%' height='1000' />
+    <img src='' data-src='http://www.deelay.me/img/5000ms.gif' data-src-2x='imgs/2@2x.jpg' data-src-width='1000'  width='100%' height='1000' />
+    <div data-src='http://www.deelay.me/img/10000ms.gif' data-src-2x='imgs/3@2x.jpg' data-src-width='1000' width='100%' height='1000'></div>
     <script type='text/javascript'>
       lazyRetina.init({
+        onBeforeImageLoad: function(elem) {
+          $(elem).css('opacity','0');
+        },
         onImageLoad: function(elem) {
-          $(elem).hide().fadeIn();
+          $(elem).animate({opacity: '1.0'});
         }
       });
     </script>
