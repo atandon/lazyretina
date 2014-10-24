@@ -5,16 +5,16 @@
     <script type='text/javascript' src='../lazyretina.js'></script>
   </head>
   <body>
-    <img src='' data-src='http://www.deelay.me/img/1000ms.gif' data-src-2x='imgs/1@2x.jpg' data-src-width='1000' width='100%' height='1000' />
-    <img src='' data-src='http://www.deelay.me/img/5000ms.gif' data-src-2x='imgs/2@2x.jpg' data-src-width='1000'  width='100%' height='1000' />
+    <img data-src='http://www.deelay.me/img/1000ms.gif' data-src-2x='imgs/1@2x.jpg' data-src-width='1000' width='100%' height='1000' />
+    <img data-src='http://www.deelay.me/img/5000ms.gif' data-src-2x='imgs/2@2x.jpg' data-src-width='1000'  width='100%' height='1000' />
     <div data-src='http://www.deelay.me/img/10000ms.gif' data-src-2x='imgs/3@2x.jpg' data-src-width='1000' width='100%' height='1000'></div>
     <script type='text/javascript'>
       lazyRetina.init({
         onBeforeImageLoad: function(elem) {
-          $(elem).css('opacity','0');
+          elem.style.visibility = 'hidden';
         },
         onImageLoad: function(elem) {
-          $(elem).animate({opacity: '1.0'});
+          elem.style.visibility = 'visible';
         }
       });
     </script>
