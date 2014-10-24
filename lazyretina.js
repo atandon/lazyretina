@@ -119,12 +119,24 @@ var lazyRetina;
     }
   };
 
+  var addEvent = function(elem,eventName,func) {
+    if(elem.hasOwnProperty('addEventListener')) {
+      elem.addEventListener(eventName,func);
+      return true;
+    } else if (elem.hasOwnProperty('attachEvent')) {
+      elem.attachEvent(eventName, func);
+      return true;
+    }
+
+    return false;
+  }
+
   lazyRetina.init = function(options) {
     this.configure(options);
     load(config);
     root.onload = function() { load(config); };
 
-    document.addEventListener('touchmove',function() { load(config); })
+    addEvent(document,'touchmove',function() { load(config); });
 
     if(config.lazyload) {
       root.onscroll = function() { load(config); };
