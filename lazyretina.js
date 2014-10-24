@@ -12,7 +12,7 @@ var lazyRetina;
       normalWidth: 'data-src-width'
     },
     container: 'body',
-    offset: 300,
+    offset: 300, 
     lazyload: true,
     onImageLoad: function() {},
     onBeforeImageLoad: function() {},
@@ -83,7 +83,7 @@ var lazyRetina;
   };
 
   var getImagePath = function(elem, isRetina) {
-    var imgTag = ((isRetina && !config.shouldSwitchToNormal(elem)) || 
+    var imgTag = ((isRetina && !config.shouldSwitchToNormal(elem)) ||
                    config.shouldSwitchToRetina(elem)) ? config.tags.retina : config.tags.normal;
     var imgTagValue = elem.getAttribute(imgTag);
 
@@ -123,7 +123,8 @@ var lazyRetina;
     this.configure(options);
     load(config);
     root.onload = function() { load(config); };
-    $(document).on('touchmove',function() { load(config); });
+
+    document.addEventListener('touchmove',function() { load(config); })
 
     if(config.lazyload) {
       root.onscroll = function() { load(config); };
