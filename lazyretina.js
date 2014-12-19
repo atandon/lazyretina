@@ -17,10 +17,10 @@ var lazyRetina;
     onImageLoad: function() {},
     onBeforeImageLoad: function() {},
     shouldSwitchToNormal: function(elem) {
-      return elem.offsetWidth < (elem.getAttribute(this.tags.normalWidth) / 2);
+      return elem.offsetWidth > 0 && elem.offsetWidth < (elem.getAttribute(this.tags.normalWidth) / 2);
     },
     shouldSwitchToRetina: function(elem) {
-      return elem.offsetWidth > elem.getAttribute(this.tags.normalWidth);
+      return elem.offsetWidth > 0 && elem.offsetWidth > elem.getAttribute(this.tags.normalWidth);
     }
   };
 
