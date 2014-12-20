@@ -12,7 +12,7 @@ var lazyRetina;
       normalWidth: 'data-src-width'
     },
     container: 'body',
-    offset: 300, 
+    offset: 300,
     lazyload: true,
     onImageLoad: function() {},
     onBeforeImageLoad: function() {},
